@@ -172,10 +172,7 @@ class PrinterClient:
             # Adjust the delay as needed based on printer feedback
             await asyncio.sleep(0.01)
 
-        while not await self.end_page_print():
-            await asyncio.sleep(0.5)
-
-        await self.end_print()
+        await self.end_page_print()
 
     def _encode_image(self, image: Image, vertical_offset=0, horizontal_offset=0):
         # Convert the image to monochrome
