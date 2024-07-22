@@ -174,6 +174,8 @@ class PrinterClient:
 
         await self.end_page_print()
 
+        await asyncio.sleep(2) # Sleep for some time, looks like it enhances the reliability of the print job
+
     def _encode_image(self, image: Image, vertical_offset=0, horizontal_offset=0):
         # Convert the image to monochrome
         img = ImageOps.invert(image.convert("L")).convert("1")
