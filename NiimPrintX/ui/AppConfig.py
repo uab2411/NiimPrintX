@@ -59,6 +59,7 @@ class AppConfig:
                     "50mm x 30mm": (50, 30),
                     "50mm x 15mm": (50, 14),
                     "60mm x 40mm": (60, 40),
+                    "40mm x 30mm": (40, 30),
                 },
                 "density": 3
             }
