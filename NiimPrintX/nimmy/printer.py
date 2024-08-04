@@ -160,7 +160,7 @@ class PrinterClient:
                             horizontal_offset=0):
         await self.set_label_density(density)
         await self.set_label_type(1)
-        await self.start_printV2()
+        await self.start_printV2(quantity=quantity)
         await self.start_page_print()
         await self.set_dimensionV2(image.height, image.width, quantity)
 
@@ -291,8 +291,11 @@ class PrinterClient:
         packet = await self.send_command(RequestCodeEnum.START_PRINT, b"\x01")
         return bool(packet.data[0])
     
-    async def start_printV2(self):
-        packet = await self.send_command(RequestCodeEnum.START_PRINT, b"\x00\x01\x00\x00\x00\x00\x00")
+    async def start_printV2(self, quantity):
+        assert 0 <= quantity <= 65535  # assume quantity can not be greater than 65535 (2 bytes)
+
+        command = struct.pack('H', quantity)
+        packet = await self.send_command(RequestCodeEnum.START_PRINT, b'\x00' + command + b'\x00\x00\x00\x00')
         return bool(packet.data[0])
 
     async def end_print(self):
